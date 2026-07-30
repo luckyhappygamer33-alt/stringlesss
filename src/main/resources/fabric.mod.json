@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "stringless",
+	"version": "${version}",
+	"name": "Stringless",
+	"description": "Hide placed string with customizable visibility modes.",
+	"authors": [
+		"cat_metalhead"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/stringless"
+	},
+	"license": "MIT",
+	"icon": "assets/stringless/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"net.cat_metalhead.stringless.Stringless"
+		],
+		"modmenu": [
+			"net.cat_metalhead.stringless.ModMenuIntegration"
+		],
+		"client": [],
+		"fabric-datagen": []
+	},
+	"mixins": [
+		"stringless.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": ">=1.20 <=1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"yet_another_config_lib_v3": ">=3.2.2"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}
