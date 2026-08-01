@@ -58,7 +58,13 @@ dependencies {
 		exclude group: "com.twelvemonkeys.common"
 	}
 
-	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modCompileOnly "maven.modrinth:mOgUt4GM:${project.modmenu_version}"
+	//uncomment or comment this if want Mod Menu on runtime
+	modRuntimeOnly "maven.modrinth:mOgUt4GM:${project.modmenu_version}"
+
+	modCompileOnly "maven.modrinth:sodium:${project.sodium_version}"
+	//uncomment or comment this if want Sodium on runtime
+	// modRuntimeOnly "maven.modrinth:sodium:${project.sodium_version}"
 }
 
 processResources {
