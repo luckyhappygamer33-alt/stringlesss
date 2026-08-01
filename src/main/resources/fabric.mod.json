@@ -14,13 +14,13 @@
 	"icon": "assets/stringless/icon.png",
 	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"net.cat_metalhead.stringless.Stringless"
-		],
+		"main": [],
 		"modmenu": [
 			"net.cat_metalhead.stringless.ModMenuIntegration"
 		],
-		"client": [],
+		"client": [
+			"net.cat_metalhead.stringless.Stringless"
+		],
 		"fabric-datagen": []
 	},
 	"mixins": [
@@ -28,12 +28,13 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.17.2",
-		"minecraft": ">=1.20 <=1.20.1",
+		"minecraft": ">=1.21.4 <=1.21.4",
 		"java": ">=17",
 		"fabric-api": "*",
-		"yet_another_config_lib_v3": ">=3.2.2"
+		"yet_another_config_lib_v3": ">=3.8.2"
 	},
 	"suggests": {
-		"modmenu": "*"
+		"modmenu": "*",
+		"sodium": "*"
 	}
 }
