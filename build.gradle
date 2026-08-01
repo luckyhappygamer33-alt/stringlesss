@@ -59,6 +59,10 @@ dependencies {
 	}
 
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	modCompileOnly "maven.modrinth:sodium:${project.sodium_version}"
+	//uncomment or comment this if want Sodium on runtime
+	modRuntimeOnly "maven.modrinth:sodium:${project.sodium_version}"
 }
 
 processResources {
