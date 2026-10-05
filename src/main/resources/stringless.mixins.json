@@ -6,7 +6,8 @@
 	"mixins": [],
 	"client": [
 		"WorldRendererMixin",
-		"SodiumBlockRendererMixin"
+		"SodiumBlockRendererMixin",
+		"IndiumTerrainRenderContextMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

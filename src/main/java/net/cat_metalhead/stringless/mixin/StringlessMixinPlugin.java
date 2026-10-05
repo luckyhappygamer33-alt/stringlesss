@@ -14,12 +14,15 @@ public class StringlessMixinPlugin implements IMixinConfigPlugin {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("stringless");
     private static final boolean SODIUM = FabricLoader.getInstance().isModLoaded("sodium");
+    private static final boolean INDIUM = FabricLoader.getInstance().isModLoaded("indium");
 
     // actually used methods
     @Override
     public boolean shouldApplyMixin(String targetClass, String mixinClass) {
         if (mixinClass.endsWith("SodiumBlockRendererMixin"))
             return SODIUM;
+        if (mixinClass.endsWith("IndiumTerrainRenderContextMixin"))
+            return SODIUM && INDIUM;
         if (mixinClass.endsWith("WorldRendererMixin"))
             return !SODIUM;
         return true;
@@ -27,7 +30,9 @@ public class StringlessMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {
-        if (SODIUM) {
+        if (SODIUM && INDIUM) {
+            LOGGER.info("Sodium + Indium detected - enabling Sodium and FRAPI render hooks.");
+        } else if (SODIUM) {
             LOGGER.info("Sodium detected - using Sodium renderer mixin.");
         } else {
             LOGGER.info("Sodium not detected - using vanilla renderer mixin.");
