@@ -1,6 +1,7 @@
 package net.cat_metalhead.stringless;
 
-import net.caffeinemc.mods.sodium.client.render.SodiumWorldRenderer;
+import me.jellysquid.mods.sodium.client.render.SodiumWorldRenderer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.TripwireBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Items;
@@ -39,23 +40,16 @@ public class StringlessRenderHelper {
     // ONLY IF USING SODIUM - called from tick
     private static boolean lastSodiumHideState = false;
 
-    public static void onClientTick(MinecraftClient client) {
+    public static void onFrame(MinecraftClient client) {
         if (client.player == null || client.world == null)
+            return;
+        if (!FabricLoader.getInstance().isModLoaded("sodium"))
             return;
 
         boolean shouldHide = shouldHideThisFrame();
         if (shouldHide != lastSodiumHideState) {
             lastSodiumHideState = shouldHide;
-            // trigger via block update which Sodium always responds to
-            // rebuild all chunks in render distance
-            int renderDist = client.options.getClampedViewDistance() * 16;
-            BlockPos p = client.player.getBlockPos();
-
-            SodiumWorldRenderer.instance().scheduleRebuildForBlockArea(
-                    p.getX() - renderDist, client.world.getBottomY(), p.getZ() - renderDist,
-                    p.getX() + renderDist, client.world.getTopY(), p.getZ() + renderDist,
-                    true // important = high priority rebuild
-            );
+            StringlessSodiumCompat.rebuildTripwireSections();
         }
     }
 

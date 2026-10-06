@@ -1,8 +1,10 @@
 package net.cat_metalhead.stringless;
 
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +20,11 @@ public class Stringless implements ClientModInitializer {
 
 		// ONLY IF USING SODIUM
 		if (FabricLoader.getInstance().isModLoaded("sodium")) {
-			ClientTickEvents.END_CLIENT_TICK.register(StringlessRenderHelper::onClientTick);
+			WorldRenderEvents.START.register(ctx -> StringlessRenderHelper.onFrame(MinecraftClient.getInstance()));
+			ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+				if (FabricLoader.getInstance().isModLoaded("sodium"))
+					StringlessSodiumCompat.clear();
+			});
 		}
 
 	}
